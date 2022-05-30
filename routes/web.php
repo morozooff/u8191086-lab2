@@ -16,3 +16,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('posts', [ArticleController::class, 'index']);
+Route::get('posts/{code}', [ArticleController::class, 'showArt']);

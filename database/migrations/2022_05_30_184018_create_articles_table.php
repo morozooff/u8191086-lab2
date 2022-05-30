@@ -16,6 +16,10 @@ return new class extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('title');
+            $table->string('code');
+            $table->string('contents');
+            $table->string('author');
         });
     }
 

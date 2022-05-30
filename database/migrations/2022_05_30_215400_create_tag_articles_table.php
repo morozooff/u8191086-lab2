@@ -14,8 +14,17 @@ return new class extends Migration
     public function up()
     {
         Schema::create('tag_articles', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->timestamps();
+            $table->integer('tag_id');
+            $table->foreign('tag_id')
+                ->references('id')
+                ->on('tags')->onDelete('cascade');
+
+            $table->integer('article_id');
+            $table->foreign('article_id')
+                ->references('id')
+                ->on('articles')->onDelete('cascade');
         });
     }
 

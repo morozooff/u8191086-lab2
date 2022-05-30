@@ -13,12 +13,14 @@ class ArticleController extends Controller
     public function index(Request $request): \Illuminate\Contracts\View\View
     {
         $filterParam = $request->input("tag");
-        $articles = Article::all();
+        
         if ($filterParam) {
-                $filteredArticles = Article::whereHas('tags', function($q) use ($filterParam) {
+                $filteredArticles = Article::whereHas('tags', function ($q) use ($filterParam) {
                     $q->where('name', '=', $filterParam);
                 })->get();
             $articles = $filteredArticles;
+        }  else {
+            $articles = Article::all();
         }
         return View::make('index')
             ->with('articles', $articles);
@@ -26,7 +28,7 @@ class ArticleController extends Controller
 
     public function show($code)
     {
-        $article = Article::all()->firstWhere('code', $code);
+        $article = Article::firstWhere('code', $code);
         return View::make('show')->with('article', $article);
     }
 }
